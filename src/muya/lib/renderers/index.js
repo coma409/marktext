@@ -6,6 +6,7 @@ const rendererCache = new Map()
 const loadRenderer = async (name) => {
   if (!rendererCache.has(name)) {
     let m
+    let mindmap
     switch (name) {
       case 'sequence':
         m = await import('../parser/render/sequence')
