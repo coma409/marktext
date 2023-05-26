@@ -20,7 +20,13 @@ const loadRenderer = async (name) => {
         rendererCache.set(name, m.default)
         break
       case 'mermaid':
-        m = await import('mermaid/dist/mermaid.min.js')
+        // m = await import('mermaid/dist/mermaid.core.js')
+        m = await import('mermaid/dist/mermaid.core.mjs')
+
+        mindmap = await import('@mermaid-js/mermaid-mindmap/dist/mermaid-mindmap.core.mjs')
+        rendererCache.set(`${name}_mindmap`, mindmap.default)
+        await m.default.registerExternalDiagrams([mindmap.default], { lazyLoad: false })
+
         rendererCache.set(name, m.default)
         break
       case 'vega-lite':
